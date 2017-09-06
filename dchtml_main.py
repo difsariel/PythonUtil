@@ -52,10 +52,10 @@ if __name__ == "__main__":
 
                         insert_sql = '''insert into news_spell_check(docId, publishDate, title, content, titleMisspell, contentMisspell) values("%s", "%s", "%s", "%s", "%s", "%s")'''
                         try:
-                            cursor.execute(insert_sql % (
-                            doc_id, publish_date, title, content, title_misspell, content_misspell))
+                            cursor.execute(insert_sql % (doc_id, publish_date, title, content, title_misspell, content_misspell))
                             db.commit()
-                        except:
+                        except Exception as e:
+                            print(e)
                             db.rollback()
 
                         # file_dict = dict([("docId", doc_id), ("title", title), ("content", content),
@@ -64,8 +64,8 @@ if __name__ == "__main__":
                         # file_dict_list.append(file_dict)
 
                         print(folder_name + u"\\" + file_name + " was parsed successfully!")
-                except:
-                    pass
+                except Exception as e:
+                    print(e)
 
     db.close()
     # file_df = pd.DataFrame(file_dict_list)
