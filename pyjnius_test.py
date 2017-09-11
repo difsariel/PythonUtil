@@ -1,11 +1,11 @@
 import jnius_config
 
-jnius_config.add_classpath(u"D:\pyjnius\MyAwesomeSpark.jar")
+jnius_config.add_classpath(u"D:\pyjnius\SpellChecker.jar")
 
 import jnius
 
 if __name__ == "__main__":
-    class_path = jnius_config.get_classpath()
-    print(class_path)
-    Test = jnius.autoclass('Test')
-    Test.test()
+    SpellChecker = jnius.autoclass("spellchecker.SpellChecker")
+    spellChecker = SpellChecker()
+    spellChecker.loadDict(u"D:/分析项目/错别字识别/spellDict.txt")
+    print(spellChecker.check(u"贵州省深泰文明委"))
