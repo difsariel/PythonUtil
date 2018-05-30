@@ -4,7 +4,7 @@ import codecs
 import os
 
 
-def read_xls(file_path):
+def read_xls(file_path: str) -> list:
     xls_file = xlrd.open_workbook(file_path)
     xls_sheet = xls_file.sheets()[0]
     rows = xls_sheet.get_rows()
@@ -22,8 +22,10 @@ def read_xls(file_path):
                 cur_dict["url"] = row[i].value
             if i == 3:
                 cur_dict["media"] = row[i].value
-        if len(cur_dict) != 3:
-            print(cur_dict)
+            if i == 4:
+                cur_dict["publishTime"] = row[i].value
+        if len(cur_dict) != 4:
+            print("wrong: " + str(cur_dict))
             continue
         lines.append(cur_dict)
 
@@ -31,7 +33,7 @@ def read_xls(file_path):
     return lines
 
 
-def write_lines(lines, file_path):
+def write_lines(lines: list, file_path: str):
     with codecs.open(file_path, "w", encoding="utf-8") as f:
         for line in lines:
             f.writelines(line + "\n")
